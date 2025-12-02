@@ -1,8 +1,9 @@
-@use './_vars.scss' as *;
+@use './vars.scss' as *;
  
 @mixin link($color: $blue, $hoverColor: $red) { /* миксин с параметрами */
   color: $color;
   transition: color 200ms ease;
+
   &:hover,
   &:active {
     color: $hoverColor;

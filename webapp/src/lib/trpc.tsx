@@ -17,8 +17,8 @@ const queryClient = new QueryClient({
 const trpcClient = trpc.createClient({
   links: [
     httpBatchLink({
-      // url: 'http://192.168.38.147:3000/trpc', //work
-      url: 'http://192.168.43.254:3000/trpc', // home
+      url: 'http://192.168.38.147:3000/trpc', //work
+      // url: 'http://192.168.43.254:3000/trpc', // home
     }),
   ],
 })
