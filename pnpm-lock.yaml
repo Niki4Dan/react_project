@@ -138,6 +138,12 @@ importers:
       sass:
         specifier: ^1.94.2
         version: 1.94.2
+      zod:
+        specifier: ^4.1.13
+        version: 4.1.13
+      zod-formik-adapter:
+        specifier: ^2.0.0
+        version: 2.0.0(formik@2.4.9(@types/react@19.2.6)(react@19.2.0))(zod@4.1.13)
     devDependencies:
       '@types/node':
         specifier: ^24.10.0
@@ -3109,6 +3115,12 @@ packages:
   yocto-queue@0.1.0:
     resolution: {integrity: sha512-rVksvsnNCdJ/ohGc6xgPwyN8eheCxsiLM8mxuE/t/mOVqJewPuO1miLpTHQiRgTKCLexL4MeAFVagts7HmNZ2Q==}
     engines: {node: '>=10'}
+
+  zod-formik-adapter@2.0.0:
+    resolution: {integrity: sha512-cLykLmQgmCmhx8C/mwR+rUNKRw6kEukejGRrByB+56zV1XtHF+xmOiQ2Lp2w5R0BdN3z42QKFekOI0Vy39vR8Q==}
+    peerDependencies:
+      formik: ^2.2.9
+      zod: 4.x
 
   zod@4.1.13:
     resolution: {integrity: sha512-AvvthqfqrAhNH9dnfmrfKzX5upOdjUVJYFqNSlkmGf64gRaTzlPwz99IHYnVs28qYAybvAlBV+H7pn0saFY4Ig==}
@@ -6339,5 +6351,10 @@ snapshots:
   yn@3.1.1: {}
 
   yocto-queue@0.1.0: {}
+
+  zod-formik-adapter@2.0.0(formik@2.4.9(@types/react@19.2.6)(react@19.2.0))(zod@4.1.13):
+    dependencies:
+      formik: 2.4.9(@types/react@19.2.6)(react@19.2.0)
+      zod: 4.1.13
 
   zod@4.1.13: {}
