@@ -5,15 +5,27 @@ export default [
   ...baseConfig,
 
   {
-    files: ['/*.{ts,tsx,js,jsx}'],
+    files: ['**/*.{ts,tsx,js,jsx}'],
     languageOptions: {
       parserOptions: {
+        tsconfigRootDir: import.meta.dirname,
         project: ['tsconfig.json', 'tsconfig.node.json', 'tsconfig.app.json'],
       },
     },
     rules: {
-      'react/react-in-jsx-scope': 'off', // React 17+ не требует импортировать React
-      //   'jsx-a11y/anchor-is-valid': 'off',
+      '@typescript-eslint/no-restricted-imports': [
+        'error',
+        {
+          // Запрещаем импорт всего из @ideanick/backend, кроме /input
+          patterns: [
+            {
+              regex: "^@project/backend/(?!(.*/)?input$).+$",
+              message: 'Импорт из бэкенда разрешен только для файлов input',
+              allowTypeImports: true,
+            }
+          ]
+        }
+      ]
     },
   },
 
@@ -26,6 +38,7 @@ export default [
     files: ['./vite.config.ts'],
     languageOptions: {
       parserOptions: {
+        tsconfigRootDir: import.meta.dirname,
         project: ['tsconfig.json', 'tsconfig.node.json', 'tsconfig.app.json'],
       },
     },

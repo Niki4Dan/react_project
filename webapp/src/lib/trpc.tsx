@@ -1,4 +1,4 @@
-import type { TrpcRouter } from '@project/backend/src/trpc.ts' // перед этим выполнить шаги 3
+import type { TrpcRouter } from '@project/backend/src/router' // перед этим выполнить шаги 3
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import { httpBatchLink } from '@trpc/client'
 import { createTRPCReact } from '@trpc/react-query'
