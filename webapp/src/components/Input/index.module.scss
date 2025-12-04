@@ -1,3 +1,41 @@
 @use '../../styles/vars.scss' as *;
 @use '../../styles/mixins.scss' as *;
 @use 'include-media/dist/include-media' as *;
+
+.field {
+  &.disabled {
+    /*  .field.disabled  элемент имеет класс и field и disabled*/
+    opacity: 0.5;
+  }
+
+  .label {
+    /* .field .label элемент имеет класс label и этот элемент находится внутри элемента с классом field*/
+    font-weight: bold;
+    margin-bottom: 2px;
+    display: block;
+  }
+
+  .input {
+    display: block;
+    padding: 7px;
+    border: 1px solid $black;
+    border-radius: $borderRadiusSmall;
+    background-color: $white;
+    outline: none;
+    width: 100%;
+    max-width: 200px;
+
+    &:focus {
+      border-color: $blue;
+    }
+
+    &.invalid {
+      border-color: $red;
+    }
+  }
+
+  .error {
+    margin-top: 2px;
+    color: $red;
+  }
+}

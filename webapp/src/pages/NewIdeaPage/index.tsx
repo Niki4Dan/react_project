@@ -44,7 +44,7 @@ export const NewIdeaPage = () => {
           formik.handleSubmit()
         }}
       >
-        <Input name="name" label="Name" type="text" formik={formik} />
+        <Input name="name" label="Name" type="text" formik={formik} maxWidth={'100'}/>
         <Input name="ideaNick" label="Nick" type="text" formik={formik} />
         <Input name="description" label="Description" type="text" formik={formik} />
         <Textarea name="text" label="Text" formik={formik} />
