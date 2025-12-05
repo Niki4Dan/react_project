@@ -13,7 +13,9 @@ export default [
       },
     },
     rules: {
+      "@typescript-eslint/no-explicit-any": "off",
       '@typescript-eslint/no-restricted-imports': [
+        
         'error',
         {
           // Запрещаем импорт всего из @ideanick/backend, кроме /input

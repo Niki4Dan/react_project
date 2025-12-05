@@ -1,3 +1,10 @@
-@use '../../styles/vars.scss' as *;
-@use '../../styles/mixins.scss' as *;
-@use 'include-media/dist/include-media' as *;
+@use '../Input/index.module';
+
+.field {
+  .input {
+    min-height: 150px;
+    width: 100%;
+    max-width: none;
+    resize: vertical;
+  }
+}

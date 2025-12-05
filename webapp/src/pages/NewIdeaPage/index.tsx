@@ -2,10 +2,13 @@ import { schema } from '@project/backend/src/router/createIdea/input'
 import { useFormik } from 'formik'
 import { useState } from 'react'
 import { toFormikValidationSchema } from 'zod-formik-adapter'
+import { Alert } from '../../components/Alert'
+import { Button } from '../../components/Button'
 import { Input } from '../../components/Input'
 import { Segment } from '../../components/Segment'
 import { Textarea } from '../../components/Textarea'
 import { trpc } from '../../lib/trpc'
+
 
 export const NewIdeaPage = () => {
   const [successMessageVisible, setSuccessMessageVisible] = useState(false)
@@ -44,16 +47,14 @@ export const NewIdeaPage = () => {
           formik.handleSubmit()
         }}
       >
-        <Input name="name" label="Name" type="text" formik={formik} maxWidth={'100'}/>
+        <Input name="name" label="Name" type="text" formik={formik} maxWidth={'100'} />
         <Input name="ideaNick" label="Nick" type="text" formik={formik} />
         <Input name="description" label="Description" type="text" formik={formik} />
         <Textarea name="text" label="Text" formik={formik} />
         {!formik.isValid && !!formik.submitCount && <div style={{ color: 'red' }}>Some fields are invalid</div>}
-        {successMessageVisible && <div style={{ color: 'green' }}>Idea created</div>}
-        {!!submittingError && <div style={{ color: 'red' }}>{submittingError}</div>}
-        <button type="submit" disabled={formik.isSubmitting}>
-          {formik.isSubmitting ? 'Loading...' : 'Creat idea'}
-        </button>
+        {successMessageVisible && <Alert color="green">Idea created!</Alert>}
+        {!!submittingError && <Alert color="red">{submittingError}</Alert>}
+        <Button loading={formik.isSubmitting} >Create Idea</Button>
       </form>
     </Segment>
   )

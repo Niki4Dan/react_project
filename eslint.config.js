@@ -45,6 +45,7 @@ export default [
       '@typescript-eslint/triple-slash-reference': 'off',
       '@typescript-eslint/ban-types': 'off',
       '@typescript-eslint/consistent-type-assertions': 'off',
+      "@typescript-eslint/no-explicit-any": "off",
       curly: ['error', 'all'],
       'no-irregular-whitespace': ['error', { skipTemplates: true, skipStrings: true }],
       'no-console': ['error', { allow: ['info', 'error', 'warn'] }],
