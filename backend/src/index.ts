@@ -1,11 +1,9 @@
 import cors from 'cors'
-import dotenv from 'dotenv'
+import 'dotenv/config'
 import express from 'express'
 import { type AppContext, createAppContext } from './lib/ctx'
 import { applyTrpcExpressApp } from './lib/trpc'
 import { trpcRouter } from './router'
-
-dotenv.config({ path: '../.env' })
 
 void (async () => {
   let ctx: AppContext | null = null

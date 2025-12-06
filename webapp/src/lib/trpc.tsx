@@ -2,6 +2,7 @@ import type { TrpcRouter } from '@project/backend/src/router' // перед эт
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import { httpBatchLink } from '@trpc/client'
 import { createTRPCReact } from '@trpc/react-query'
+import superjson from 'superjson'
 
 export const trpc = createTRPCReact<TrpcRouter>() // тип TrpcRouter в бэкэнде
 
@@ -17,8 +18,9 @@ const queryClient = new QueryClient({
 const trpcClient = trpc.createClient({
   links: [
     httpBatchLink({
-      url: 'http://192.168.38.147:3000/trpc', //work
-      //url: 'http://192.168.43.254:3000/trpc', // home
+      //url: 'http://192.168.38.147:3000/trpc', //work
+      url: 'http://192.168.43.254:3000/trpc', // home
+      transformer: superjson,
     }),
   ],
 })
