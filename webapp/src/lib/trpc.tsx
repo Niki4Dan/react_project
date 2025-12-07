@@ -2,6 +2,7 @@ import type { TrpcRouter } from '@project/backend/src/router' // перед эт
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import { httpBatchLink } from '@trpc/client'
 import { createTRPCReact } from '@trpc/react-query'
+import Cookies from 'js-cookie'
 import superjson from 'superjson'
 
 export const trpc = createTRPCReact<TrpcRouter>() // тип TrpcRouter в бэкэнде
@@ -21,6 +22,12 @@ const trpcClient = trpc.createClient({
       //url: 'http://192.168.38.147:3000/trpc', //work
       url: 'http://192.168.43.254:3000/trpc', // home
       transformer: superjson,
+      headers: () => {
+        const tocken = Cookies.get('tocken')
+        return {
+          ...(tocken && { authorization: `Bearer ${tocken}` }),
+        }
+      },
     }),
   ],
 })

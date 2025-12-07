@@ -2,6 +2,7 @@ import cors from 'cors'
 import 'dotenv/config'
 import express from 'express'
 import { type AppContext, createAppContext } from './lib/ctx'
+import { applyPassportToExpressApp } from './lib/passport'
 import { applyTrpcExpressApp } from './lib/trpc'
 import { trpcRouter } from './router'
 
@@ -16,7 +17,7 @@ void (async () => {
     expressApp.get('/ping', (req, res) => {
       res.send('pong')
     })
-
+    applyPassportToExpressApp(expressApp, ctx)
     applyTrpcExpressApp(expressApp, ctx, trpcRouter)
 
     expressApp.listen(3000, () => {

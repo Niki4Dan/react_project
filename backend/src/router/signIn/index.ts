@@ -1,18 +1,21 @@
 import { trpc } from '../../lib/trpc'
 import { getPasswordHash } from '../../utils/getPasswordHash'
+import { signJWT } from '../../utils/signJWT'
 import { zSignInTrpcInput } from './input'
 
 export const signInTrpcRoute = trpc.procedure.input(zSignInTrpcInput).mutation(async ({ ctx, input }) => {
-  const exnick = await ctx.prisma.user.findUnique({
+  const user = await ctx.prisma.user.findUnique({
     where: {
       nick: input.nick,
       password: getPasswordHash(input.password),
     },
   })
 
-  if (!exnick) {
+  if (!user) {
     throw Error('Wrong nick or password!')
   }
 
-  return true
+  const token = signJWT(user.id)
+
+  return token
 })

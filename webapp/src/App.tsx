@@ -9,14 +9,13 @@ import { SignUpPage } from './pages/SignUpPage'
 import { ViewIdeaPage } from './pages/ViewIdeaPage'
 import './styles/global.scss'
 
-
 export const App = () => {
   return (
     <TrpcProvider>
       <BrowserRouter>
         <Routes>
           <Route element={<Layout />}>
-          <Route path={router.getSignInPageRoute()} element={<SignInPage />} />
+            <Route path={router.getSignInPageRoute()} element={<SignInPage />} />
             <Route path={router.getSignUpPageRoute()} element={<SignUpPage />} />
             <Route path={router.getAllIdeasRoute()} element={<AllIdeasPage />} />
             <Route path={router.getViewNewIdeaPageRoute()} element={<NewIdeaPage />} />
