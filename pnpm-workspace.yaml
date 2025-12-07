@@ -5,3 +5,6 @@ packages:
 ignoredBuiltDependencies:
   - '@prisma/engines'
   - prisma
+
+onlyBuiltDependencies:
+  - esbuild

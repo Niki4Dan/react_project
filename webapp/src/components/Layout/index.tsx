@@ -1,7 +1,7 @@
 import { Link, Outlet } from 'react-router-dom'
 import * as routes from '../../lib/routes'
 import css from './index.module.scss'
- 
+
 export const Layout = () => {
   return (
     <div className={css.layout}>
@@ -14,8 +14,20 @@ export const Layout = () => {
             </Link>
           </li>
           <li className={css.item}>
-            <Link className={css.link} to={routes.getViewNewIdeaPage()}>
+            <Link className={css.link} to={routes.getViewNewIdeaPageRoute()}>
               Add idea
+            </Link>
+          </li>
+
+          <li className={css.item}>
+            <Link className={css.link} to={routes.getSignUpPageRoute()}>
+              Sign Up
+            </Link>
+          </li>
+
+          <li className={css.item}>
+            <Link className={css.link} to={routes.getSignInPageRoute()}>
+              Sign In
             </Link>
           </li>
         </ul>
