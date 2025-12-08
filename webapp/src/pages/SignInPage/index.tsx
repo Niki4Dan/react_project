@@ -14,6 +14,7 @@ import { trpc } from '../../lib/trpc'
 
 export const SignInPage = () => {
   const navigate = useNavigate()
+  const trpcUtils = trpc.useUtils()
   const [submittingError, setSubmittingError] = useState<string | null>(null)
   const signIn = trpc.signIn.useMutation()
   const formik = useFormik({
@@ -25,8 +26,9 @@ export const SignInPage = () => {
     onSubmit: async (values) => {
       try {
         setSubmittingError(null)
-        const token = await signIn.mutateAsync(values)
+        const { token } = await signIn.mutateAsync(values)
         Cookies.set('token', token, { expires: 99999 })
+        void trpcUtils.invalidate()
         navigate(getAllIdeasRoute())
         
       } catch (error: any) {

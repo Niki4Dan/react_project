@@ -17,5 +17,5 @@ export const signInTrpcRoute = trpc.procedure.input(zSignInTrpcInput).mutation(a
 
   const token = signJWT(user.id)
 
-  return token
+  return { token }
 })

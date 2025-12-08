@@ -1,4 +1,4 @@
-import { inferAsyncReturnType, initTRPC } from '@trpc/server'
+import { type inferAsyncReturnType, initTRPC } from '@trpc/server'
 import * as trpcExpress from '@trpc/server/adapters/express'
 import { type Express } from 'express'
 import superjson from 'superjson'

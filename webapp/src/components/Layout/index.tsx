@@ -24,11 +24,11 @@ export const Layout = () => {
                 </Link>
               </li>
 
-             {/*  <li className={css.item}>
-                <Link className={css.link} to={routes.getSignOutRoute()}>
+              <li className={css.item}>
+                <Link className={css.link} to={routes.getSignOutPageRoute()}>
                   Log Out ({data.me.nick})
                 </Link>
-              </li> */}
+              </li>
             </>
           ) : (
             <>
