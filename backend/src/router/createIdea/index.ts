@@ -2,6 +2,9 @@ import { trpc } from '../../lib/trpc'
 import { schema } from './input'
 
 export const createIdeaTrpcRoute = trpc.procedure.input(schema).mutation(async ({ ctx, input }) => {
+  if (!ctx.me) {
+    throw Error('Not authenticated')
+  }
   const exidea = await ctx.prisma.idea.findUnique({
     where: {
       ideaNick: input.ideaNick,
@@ -13,7 +16,10 @@ export const createIdeaTrpcRoute = trpc.procedure.input(schema).mutation(async (
   }
 
   await ctx.prisma.idea.create({
-    data: input,
+    data: {
+      ...input,
+      authorId: ctx.me.id,
+    },
   })
 
   return true
