@@ -2,6 +2,7 @@ import { format } from 'date-fns/format'
 import { useParams } from 'react-router-dom'
 import { LinkButton } from '../../components/Button'
 import { Segment } from '../../components/Segment'
+import { useMe } from '../../lib/ctx'
 import { type ViewIdeaRouteParams } from '../../lib/routes'
 import * as router from '../../lib/routes'
 import { trpc } from '../../lib/trpc'
@@ -11,7 +12,7 @@ import css from './index.module.scss'
 
 export const ViewIdeaPage = () => {
   const { ideaNick } = useParams() as ViewIdeaRouteParams
-  const getMeResult = trpc.getMe.useQuery()
+  const me = useMe()
   const { data, error, isLoading, isFetching, isError } = trpc.getIdea.useQuery({
     ideaNick,
   })
@@ -32,11 +33,7 @@ export const ViewIdeaPage = () => {
     return <span>Idea not found</span>
   }
 
-    if (getMeResult.isError) {
-    return <span>Error: {getMeResult.error.message}</span>
-  }
 
-  const me = getMeResult.data!.me
 
   return (
     <Segment title={data.idea.name} description={data.idea.description}>
