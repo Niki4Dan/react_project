@@ -1,46 +1,39 @@
 import type { TrpcRouterOutput } from '@project/backend/src/router'
 import { zUpdateIdeaTrpcInput } from '@project/backend/src/router/updateIdea/input'
-import { useFormik } from 'formik'
 import pick from 'lodash/pick'
-import { useState } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
-import { toFormikValidationSchema } from 'zod-formik-adapter'
 import { Alert } from '../../components/Alert'
 import { Button } from '../../components/Button'
 import { Input } from '../../components/Input'
 import { Segment } from '../../components/Segment'
 import { Textarea } from '../../components/Textarea'
-import { type EditIdeaRouteParams, getViewIdeaRoute } from '../../lib/routes'
+import { useForm } from '../../lib/form'
+import { getViewIdeaRoute, type EditIdeaRouteParams } from '../../lib/routes'
 import { trpc } from '../../lib/trpc'
 
 const EditIdeaComponent = ({ idea }: { idea: NonNullable<TrpcRouterOutput['getIdea']['idea']> }) => {
   const navigate = useNavigate()
-  const [submittingError, setSubmittingError] = useState<string | null>(null)
   const updateIdea = trpc.updateIdea.useMutation()
-  const formik = useFormik({
+  const { formik, buttonProps, alertProps } = useForm({
     initialValues: pick(idea, ['name', 'ideaNick', 'description', 'text']),
-    validationSchema: toFormikValidationSchema(zUpdateIdeaTrpcInput.omit({ ideaId: true })), // omit - обратное extend
+    validationSchema: zUpdateIdeaTrpcInput.omit({ ideaId: true }), // omit - обратное extend
     onSubmit: async (values) => {
-      try {
-        setSubmittingError(null)
-        await updateIdea.mutateAsync({ ideaId: idea.id, ...values })
-        navigate(getViewIdeaRoute({ ideaNick: values.ideaNick }))
-      } catch (err: any) {
-        setSubmittingError(err.message)
-      }
+      await updateIdea.mutateAsync({ ideaId: idea.id, ...values })
+      navigate(getViewIdeaRoute({ ideaNick: values.ideaNick }))
     },
+    resetOnSuccess: false,
+    showValidationAlert: true,
   })
 
   return (
     <Segment title={`Edit Idea: ${idea.ideaNick}`}>
       <form onSubmit={formik.handleSubmit}>
-          <Input label="Name" type='text' name="name" formik={formik} />
-          <Input label="Nick" type='text' name="ideaNick" formik={formik} />
-          <Input label="Description" type='text' name="description" maxWidth={100} formik={formik} />
-          <Textarea label="Text" name="text" formik={formik} />
-          {!formik.isValid && !!formik.submitCount && <Alert color="red">Some fields are invalid</Alert>}
-          {submittingError && <Alert color="red">{submittingError}</Alert>}
-          <Button loading={formik.isSubmitting}>Update Idea</Button>
+        <Input label="Name" type="text" name="name" formik={formik} />
+        <Input label="Nick" type="text" name="ideaNick" formik={formik} />
+        <Input label="Description" type="text" name="description" maxWidth={100} formik={formik} />
+        <Textarea label="Text" name="text" formik={formik} />
+        <Alert {...alertProps} />
+        <Button {...buttonProps}>Update Idea</Button>
       </form>
     </Segment>
   )
