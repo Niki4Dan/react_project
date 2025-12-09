@@ -15,7 +15,7 @@ export const Layout = () => {
               All Ideas
             </Link>
           </li>
-
+          {/*eslint-disable-next-line @typescript-eslint/no-non-null-assertion */}
           {isLoading || isFetching || isError ? null : data.me ? (
             <>
               <li className={css.item}>
@@ -26,6 +26,7 @@ export const Layout = () => {
 
               <li className={css.item}>
                 <Link className={css.link} to={routes.getSignOutPageRoute()}>
+                  {/*eslint-disable-next-line @typescript-eslint/no-non-null-assertion */}
                   Log Out ({data.me.nick})
                 </Link>
               </li>
