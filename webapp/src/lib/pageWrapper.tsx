@@ -2,6 +2,7 @@ import { type UseTRPCQueryResult, type UseTRPCQuerySuccessResult } from '@trpc/r
 import React, { useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { ErrorPageComponent } from '../components/ErrorPageComponent'
+import { NotFoundPage } from '../pages/NotFoundPage'
 import { useAppContext, type AppContext } from './ctx'
 import { getAllIdeasRoute } from './routes'
 
@@ -86,7 +87,7 @@ const PageWrapper = <TProps extends Props = {}, TQueryResult extends QueryResult
   if (checkExists) {
     const notExists = !checkExists(helperProps)
     if (notExists) {
-      return <ErrorPageComponent title={checkExistsTitle} message={checkExistsMessage} />
+      return <NotFoundPage title={checkExistsTitle} message={checkExistsMessage} />
     }
   }
 

@@ -10,19 +10,18 @@ import css from './index.module.scss'
 
 export const ViewIdeaPage = withPageWrapper({
   useQuery: () => {
-    const {ideaNick} = useParams() as ViewIdeaRouteParams
+    const { ideaNick } = useParams() as ViewIdeaRouteParams
     return trpc.getIdea.useQuery({
       ideaNick,
     })
   },
   checkExists: ({ queryResult }) => !!queryResult.data.idea,
   checkExistsMessage: 'Idea not found!',
-  setProps: ({ queryResult, ctx}) => ({
+  setProps: ({ queryResult, ctx }) => ({
     idea: queryResult.data.idea,
     me: ctx.me,
-  })
+  }),
 })(({ idea, me }) => {
-  
   return (
     <Segment title={idea?.name} description={idea?.description}>
       <div className={css.createdAt}>Created at: {format(idea!.createdAt, 'yyyy-MM-dd')}</div>
