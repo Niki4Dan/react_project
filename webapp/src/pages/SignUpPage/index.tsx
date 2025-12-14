@@ -1,17 +1,20 @@
 import { zSignUpTrpcInput } from '@project/backend/src/router/signUp/input'
 import Cookies from 'js-cookie'
-import { useNavigate } from 'react-router-dom'
+
 import { z } from 'zod'
 import { Alert } from '../../components/Alert'
 import { Button } from '../../components/Button'
 import { Input } from '../../components/Input'
 import { Segment } from '../../components/Segment'
 import { useForm } from '../../lib/form'
-import { getAllIdeasRoute } from '../../lib/routes'
+import { withPageWrapper } from '../../lib/pageWrapper'
+
 import { trpc } from '../../lib/trpc'
 
-export const SignUpPage = () => {
-  const navigate = useNavigate()
+export const SignUpPage = withPageWrapper({
+  redirectAuthorized: true,
+})(() => {
+
   const trpcUtils = trpc.useUtils()
   const signUp = trpc.signUp.useMutation()
   const { formik, buttonProps, alertProps } = useForm({
@@ -33,7 +36,7 @@ export const SignUpPage = () => {
       const { token } = await signUp.mutateAsync(values)
       Cookies.set('token', token, { expires: 9999999 })
       void trpcUtils.invalidate()
-      navigate(getAllIdeasRoute())
+
     },
   })
 
@@ -48,4 +51,4 @@ export const SignUpPage = () => {
       </form>
     </Segment>
   )
-}
+})

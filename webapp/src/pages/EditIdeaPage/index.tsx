@@ -1,4 +1,3 @@
-import type { TrpcRouterOutput } from '@project/backend/src/router'
 import { zUpdateIdeaTrpcInput } from '@project/backend/src/router/updateIdea/input'
 import pick from 'lodash/pick'
 import { useNavigate, useParams } from 'react-router-dom'
@@ -7,12 +6,30 @@ import { Button } from '../../components/Button'
 import { Input } from '../../components/Input'
 import { Segment } from '../../components/Segment'
 import { Textarea } from '../../components/Textarea'
-import { useMe } from '../../lib/ctx'
 import { useForm } from '../../lib/form'
+import { withPageWrapper } from '../../lib/pageWrapper'
+
 import { getViewIdeaRoute, type EditIdeaRouteParams } from '../../lib/routes'
 import { trpc } from '../../lib/trpc'
 
-const EditIdeaComponent = ({ idea }: { idea: NonNullable<TrpcRouterOutput['getIdea']['idea']> }) => {
+
+
+export const EditIdeaPage = withPageWrapper({
+  authorizedOnly: true,
+  useQuery: () => {
+    const { ideaNick } = useParams() as EditIdeaRouteParams
+    return trpc.getIdea.useQuery({
+      ideaNick,
+    })
+  },
+  checkExists: ({ queryResult }) => !!queryResult.data.idea,
+  checkExistsMessage: 'Idea not found!',
+  checkAccess: ({ queryResult, ctx }) => !!ctx.me && ctx.me.id === queryResult.data.idea?.authorId,
+  checkAccessMessage: 'An idea can only be edited by author!',
+  setProps: ({ queryResult }) => ({
+    idea: queryResult.data.idea!,
+  }),
+})(({ idea }) => {
   const navigate = useNavigate()
   const updateIdea = trpc.updateIdea.useMutation()
   const { formik, buttonProps, alertProps } = useForm({
@@ -38,9 +55,9 @@ const EditIdeaComponent = ({ idea }: { idea: NonNullable<TrpcRouterOutput['getId
       </form>
     </Segment>
   )
-}
+})
 
-export const EditIdeaPage = () => {
+/* export const EditIdeaPage = () => {
   const { ideaNick } = useParams() as EditIdeaRouteParams
 
   const getIdeaResult = trpc.getIdea.useQuery({
@@ -72,4 +89,4 @@ export const EditIdeaPage = () => {
   }
 
   return <EditIdeaComponent idea={idea} />
-}
+} */
