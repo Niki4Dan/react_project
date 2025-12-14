@@ -8,6 +8,8 @@ import { getMeTrpcRoute } from './getMe'
 import { signInTrpcRoute } from './signIn'
 import { signUpTrpcRoute } from './signUp'
 import { updateIdeaTrpcRoute } from './updateIdea'
+import { updatePasswordTrpcRoute } from './updatePassword'
+import { updateProfileTrpcRoute } from './updateProfile'
 // @endindex
 
 export const trpcRouter = trpc.router({
@@ -19,6 +21,8 @@ export const trpcRouter = trpc.router({
   signIn: signInTrpcRoute,
   signUp: signUpTrpcRoute,
   updateIdea: updateIdeaTrpcRoute,
+  updatePassword: updatePasswordTrpcRoute,
+  updateProfile: updateProfileTrpcRoute,
   // @endindex
 })
 

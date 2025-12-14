@@ -15,7 +15,7 @@ export const Layout = () => {
               All Ideas
             </Link>
           </li>
-          { }
+          {}
           {me ? (
             <>
               <li className={css.item}>
@@ -25,8 +25,14 @@ export const Layout = () => {
               </li>
 
               <li className={css.item}>
+                <Link className={css.link} to={routes.getEditProfilePageRoute()}>
+                  Edit Profile
+                </Link>
+              </li>
+
+              <li className={css.item}>
                 <Link className={css.link} to={routes.getSignOutPageRoute()}>
-                  { }
+                  {}
                   Log Out ({me.nick})
                 </Link>
               </li>

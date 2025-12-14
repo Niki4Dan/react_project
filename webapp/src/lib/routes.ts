@@ -16,6 +16,8 @@ export const getSignInPageRoute = () => '/sign-in'
 
 export const getSignOutPageRoute = () => '/sign-out'
 
+export const getEditProfilePageRoute = () => '/edit-profile'
+
 export const editIdeaRouteParams = getRouteParams({ ideaNick: true })
 export type EditIdeaRouteParams = typeof editIdeaRouteParams
 export const getEditIdeaPageRoute = ({ ideaNick }: EditIdeaRouteParams) => `/ideas/${ideaNick}/edit`

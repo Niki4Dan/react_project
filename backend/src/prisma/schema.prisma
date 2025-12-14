@@ -18,9 +18,10 @@ model Idea {
 }
 
 model User {
-  id          String    @id @default(uuid())
-  nick        String    @unique
-  password    String
-  createdAt   DateTime  @default(now())
-  ideas       Idea[]
+  id        String   @id @default(uuid())
+  nick      String   @unique
+  name      String   @default("")
+  password  String
+  createdAt DateTime @default(now())
+  ideas     Idea[]
 }
