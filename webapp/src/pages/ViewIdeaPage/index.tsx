@@ -1,3 +1,4 @@
+import type { TrpcRouterOutput } from '@project/backend/src/router'
 import { format } from 'date-fns/format'
 import { useParams } from 'react-router-dom'
 import { LinkButton } from '../../components/Button'
@@ -8,6 +9,41 @@ import * as router from '../../lib/routes'
 import { trpc } from '../../lib/trpc'
 import css from './index.module.scss'
 
+
+
+const LikeButton = ({ idea }: { idea: NonNullable<TrpcRouterOutput['getIdea']['idea']> }) => {
+  const trpcUtils = trpc.useUtils()
+  const setIdeaLike = trpc.setIdeaLike.useMutation({
+    onMutate: ({ isLikedByMe }) => {
+      const oldGetIdeaData = trpcUtils.getIdea.getData({ ideaNick: idea.ideaNick })
+      if (oldGetIdeaData?.idea) {
+        const newGetIdeaData = {
+          ...oldGetIdeaData,
+          idea: {
+            ...oldGetIdeaData.idea,
+            isLikedByMe,
+            likesCount: oldGetIdeaData.idea.likesCount + (isLikedByMe ? 1 : -1),
+          },
+        }
+        trpcUtils.getIdea.setData({ ideaNick: idea.ideaNick }, newGetIdeaData)
+      }
+    },
+    onSuccess: () => {
+      void trpcUtils.getIdea.invalidate({ ideaNick: idea.ideaNick })
+    },
+  })
+  return (
+    <button
+      className={css.likeButton}
+      onClick={() => {
+        void setIdeaLike.mutateAsync({ ideaId: idea.id, isLikedByMe: !idea.isLikedByMe })
+      }}
+    >
+      {idea.isLikedByMe ? 'Unlike' : 'Like'}
+    </button>
+  )
+}
+
 export const ViewIdeaPage = withPageWrapper({
   useQuery: () => {
     const { ideaNick } = useParams() as ViewIdeaRouteParams
@@ -16,6 +52,7 @@ export const ViewIdeaPage = withPageWrapper({
     })
   },
   checkExists: ({ queryResult }) => !!queryResult.data.idea,
+  showLoaderOnFetching: false,
   checkExistsMessage: 'Idea not found!',
   setProps: ({ queryResult, ctx }) => ({
     idea: queryResult.data.idea,
@@ -25,10 +62,20 @@ export const ViewIdeaPage = withPageWrapper({
   return (
     <Segment title={idea?.name} description={idea?.description}>
       <div className={css.createdAt}>Created at: {format(idea!.createdAt, 'yyyy-MM-dd')}</div>
-      <div className={css.author}>Author: {idea?.author.nick}
+      <div className={css.author}>
+        Author: {idea?.author.nick}
         {idea?.author.name ? ` (${idea.author.name})` : ''}
       </div>
       <div className={css.text} dangerouslySetInnerHTML={{ __html: idea!.text }} />
+      <div className={css.likes}>
+        Likes: {idea.likesCount}
+        {me && (
+          <>
+            <br />
+            <LikeButton idea={idea} />
+          </>
+        )}
+      </div>
       {me?.id === idea?.author.id && (
         <div className={css.editButton}>
           <LinkButton to={router.getEditIdeaPageRoute({ ideaNick: idea!.ideaNick })}>Edit</LinkButton>
