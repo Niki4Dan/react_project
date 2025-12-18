@@ -1,4 +1,3 @@
-import _ from 'lodash'
 import { toClientMe } from '../../lib/models'
 import { trpc } from '../../lib/trpc'
 

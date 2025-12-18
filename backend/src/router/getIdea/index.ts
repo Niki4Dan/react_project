@@ -39,7 +39,7 @@ export const getIdeaTrpcRoute = trpc.procedure
 
     const isLikedByMe = !!rawIdea?.ideasLikes.length
     const likesCount = rawIdea?._count.ideasLikes || 0
-    const idea = rawIdea && { ..._.omit(rawIdea, ['likes', '_count']), likesCount, isLikedByMe }
+    const idea = rawIdea && { ..._.omit(rawIdea, ['ideasLikes', '_count']), likesCount, isLikedByMe }
 
     return { idea }
   })

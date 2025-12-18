@@ -190,6 +190,9 @@ importers:
       formik:
         specifier: ^2.4.9
         version: 2.4.9(@types/react@19.2.7)(react@19.2.3)
+      formik-validator-zod:
+        specifier: ^2.2.0
+        version: 2.2.0(formik@2.4.9(@types/react@19.2.7)(react@19.2.3))(zod@4.1.13)
       include-media:
         specifier: ^2.0.0
         version: 2.0.0
@@ -202,6 +205,9 @@ importers:
       react-dom:
         specifier: ^19.2.0
         version: 19.2.3(react@19.2.3)
+      react-infinite-scroller:
+        specifier: ^1.2.6
+        version: 1.2.6(react@19.2.3)
       reset-css:
         specifier: ^5.0.2
         version: 5.0.2
@@ -211,6 +217,9 @@ importers:
       superjson:
         specifier: ^2.2.6
         version: 2.2.6
+      usehooks-ts:
+        specifier: ^3.1.1
+        version: 3.1.1(react@19.2.3)
       zod:
         specifier: ^4.1.13
         version: 4.1.13
@@ -233,9 +242,6 @@ importers:
       '@types/react-dom':
         specifier: ^19.2.2
         version: 19.2.3(@types/react@19.2.7)
-      '@types/react-infinite-scroller':
-        specifier: ^1.2.5
-        version: 1.2.5
       '@vitejs/plugin-react':
         specifier: ^5.1.0
         version: 5.1.2(vite@7.2.7(@types/node@24.10.3)(jiti@2.6.1)(sass@1.96.0)(yaml@2.8.2))
@@ -1093,9 +1099,6 @@ packages:
     peerDependencies:
       '@types/react': ^19.2.0
 
-  '@types/react-infinite-scroller@1.2.5':
-    resolution: {integrity: sha512-fJU1jhMgoL6NJFrqTM0Ob7tnd2sQWGxe2ESwiU6FZWbJK/VO/Er5+AOhc+e2zbT0dk5pLygqctsulOLJ8xnSzw==}
-
   '@types/react@19.2.7':
     resolution: {integrity: sha512-MWtvHrGZLFttgeEj28VXHxpmwYbor/ATPYbBfSFZEIRK0ecCFLl2Qo55z52Hss+UV9CRN7trSeq1zbgx7YDWWg==}
 
@@ -1580,6 +1583,10 @@ packages:
     resolution: {integrity: sha512-R9hc1Xa/NOBi9WRVUWg19rl1UB7Tt4kuPd+thNJgFZoxXsTz7ncaPaeIm+40oSGuP33DfMb4sZt1QIGiJzC4EA==}
     engines: {node: '>=0.10.0'}
 
+  deepmerge@4.3.1:
+    resolution: {integrity: sha512-3sUqbMEc77XqpdNO7FRyRog+eW3ph+GYCbj+rK+uYyRMuwsVy0rMiVtPn+QJlKFvWP/1PYpapqYn0Me2knFn+A==}
+    engines: {node: '>=0.10.0'}
+
   define-data-property@1.1.4:
     resolution: {integrity: sha512-rBMvIzlpA8v6E+SJZoo++HAYqsLrkg7MSfIinMPFhmkorw7X+dOXVJQs+QT69zGkzMyfDnIMN2Wid1+NbL3T+A==}
     engines: {node: '>= 0.4'}
@@ -1963,6 +1970,12 @@ packages:
   foreground-child@3.3.1:
     resolution: {integrity: sha512-gIXjKqtFuWEgzFRJA9WCQeSJLZDjgJUOMCMzxtvFq/37KojM1BFGufqsCy0r4qSQmYLsZYMeyRqzIWOMup03sw==}
     engines: {node: '>=14'}
+
+  formik-validator-zod@2.2.0:
+    resolution: {integrity: sha512-LSH3NvYZ4jyrvmeYUhIUuje1tScnsIwApqvD/c9Yh2Mdbe/dZvW3wJJA+qkpYRwfTkuByW5FSwVBLm556tZTGw==}
+    peerDependencies:
+      formik: ^2.2.9
+      zod: ^3.19.1
 
   formik@2.4.9:
     resolution: {integrity: sha512-5nI94BMnlFDdQRBY4Sz39WkhxajZJ57Fzs8wVbtsQlm5ScKIR1QLYqv/ultBnobObtlUyxpxoLodpixrsf36Og==}
@@ -2442,6 +2455,9 @@ packages:
 
   lodash-es@4.17.21:
     resolution: {integrity: sha512-mKnC+QJ9pWVzv+C4/U3rRsHapFfHvQFoFB92e52xeyGMcX6/OlIl78je1u8vePzYZSkkogMPJ2yjxxsb89cxyw==}
+
+  lodash.debounce@4.0.8:
+    resolution: {integrity: sha512-FT1yDzDYEoYWhnSGnpE/4Kj1fLZkDFyqRb7fNt6FdYOSxlUWAtp42Eh6Wb0rGIv/m9Bgo7x4GhQbm5Ys4SG5ow==}
 
   lodash.includes@4.3.0:
     resolution: {integrity: sha512-W3Bx6mdkRTGtlJISOvVD/lbqjTlPPUDTMnlXZFnVwi9NKJ6tiAk6LVdlhZMm17VZisqhKcgzpO5Wz91PCt5b0w==}
@@ -2943,6 +2959,11 @@ packages:
 
   react-fast-compare@2.0.4:
     resolution: {integrity: sha512-suNP+J1VU1MWFKcyt7RtjiSWUjvidmQSlqu+eHslq+342xCbGTYmC0mEhPCOHxlW0CywylOC1u2DFAT+bv4dBw==}
+
+  react-infinite-scroller@1.2.6:
+    resolution: {integrity: sha512-mGdMyOD00YArJ1S1F3TVU9y4fGSfVVl6p5gh/Vt4u99CJOptfVu/q5V/Wlle72TMgYlBwIhbxK5wF0C/R33PXQ==}
+    peerDependencies:
+      react: ^0.14.9 || ^15.3.0 || ^16.0.0 || ^17.0.0 || ^18.0.0
 
   react-is@16.13.1:
     resolution: {integrity: sha512-24e6ynE2H+OKt4kqsOvNd8kBpV65zoxbA4BVsEOB3ARVWQki/DHzaUoC5KuON/BiccDaCCTZBuOcfZs70kR8bQ==}
@@ -3497,6 +3518,12 @@ packages:
 
   uri-js@4.4.1:
     resolution: {integrity: sha512-7rKUyy33Q1yc98pQ1DAmLtwX109F7TIfWlW1Ydo8Wl1ii1SeHieeh0HHfPeL2fMXK6z0s8ecKs9frCuLJvndBg==}
+
+  usehooks-ts@3.1.1:
+    resolution: {integrity: sha512-I4diPp9Cq6ieSUH2wu+fDAVQO43xwtulo+fKEidHUwZPnYImbtkTjzIJYcDcJqxgmX31GVqNFURodvcgHcW0pA==}
+    engines: {node: '>=16.15.0'}
+    peerDependencies:
+      react: ^16.8.0  || ^17 || ^18 || ^19 || ^19.0.0-rc
 
   util-deprecate@1.0.2:
     resolution: {integrity: sha512-EPD5q1uXyFxJpCrLnCc1nHnq3gOa6DZBocAIiI2TaSCA7VCJ1UJDMagCzIkXNsUYfD1daK//LTEQ8xiIbrHtcw==}
@@ -4417,10 +4444,6 @@ snapshots:
     dependencies:
       '@types/react': 19.2.7
 
-  '@types/react-infinite-scroller@1.2.5':
-    dependencies:
-      '@types/react': 19.2.7
-
   '@types/react@19.2.7':
     dependencies:
       csstype: 3.2.3
@@ -4983,6 +5006,8 @@ snapshots:
   deepmerge-ts@7.1.5: {}
 
   deepmerge@2.2.1: {}
+
+  deepmerge@4.3.1: {}
 
   define-data-property@1.1.4:
     dependencies:
@@ -5561,6 +5586,12 @@ snapshots:
       cross-spawn: 7.0.6
       signal-exit: 4.1.0
 
+  formik-validator-zod@2.2.0(formik@2.4.9(@types/react@19.2.7)(react@19.2.3))(zod@4.1.13):
+    dependencies:
+      deepmerge: 4.3.1
+      formik: 2.4.9(@types/react@19.2.7)(react@19.2.3)
+      zod: 4.1.13
+
   formik@2.4.9(@types/react@19.2.7)(react@19.2.3):
     dependencies:
       '@types/hoist-non-react-statics': 3.3.7(@types/react@19.2.7)
@@ -6047,6 +6078,8 @@ snapshots:
 
   lodash-es@4.17.21: {}
 
+  lodash.debounce@4.0.8: {}
+
   lodash.includes@4.3.0: {}
 
   lodash.isboolean@3.0.3: {}
@@ -6511,6 +6544,11 @@ snapshots:
       scheduler: 0.27.0
 
   react-fast-compare@2.0.4: {}
+
+  react-infinite-scroller@1.2.6(react@19.2.3):
+    dependencies:
+      prop-types: 15.8.1
+      react: 19.2.3
 
   react-is@16.13.1: {}
 
@@ -7189,6 +7227,11 @@ snapshots:
   uri-js@4.4.1:
     dependencies:
       punycode: 2.3.1
+
+  usehooks-ts@3.1.1(react@19.2.3):
+    dependencies:
+      lodash.debounce: 4.0.8
+      react: 19.2.3
 
   util-deprecate@1.0.2: {}
 
