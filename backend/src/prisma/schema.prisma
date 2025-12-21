@@ -1,5 +1,5 @@
 generator client {
-  provider = "prisma-client-js"
+  provider        = "prisma-client-js"
   previewFeatures = ["fullTextSearchPostgres"]
 }
 
@@ -17,17 +17,24 @@ model Idea {
   createdAt    DateTime   @default(now())
   authorId     String
   author       User       @relation(fields: [authorId], references: [id])
-  ideasLikes    IdeaLike[]
+  ideasLikes   IdeaLike[]
+  blockedAt    DateTime?
 }
 
 model User {
-  id        String     @id @default(uuid())
-  nick      String     @unique
-  name      String     @default("")
-  password  String
-  createdAt DateTime   @default(now())
-  ideas     Idea[]
-  ideasLikes IdeaLike[]
+  id          String           @id @default(uuid())
+  nick        String           @unique
+  name        String           @default("")
+  password    String
+  createdAt   DateTime         @default(now())
+  ideas       Idea[]
+  ideasLikes  IdeaLike[]
+  permissions UserPermissons[]
+}
+
+enum UserPermissons {
+  BLOCK_IDEAS
+  ALL
 }
 
 model IdeaLike {

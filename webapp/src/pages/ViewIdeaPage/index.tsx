@@ -1,15 +1,37 @@
 import type { TrpcRouterOutput } from '@project/backend/src/router'
+import { canBlockIdeas, canEditIdea } from '@project/backend/src/utils/can.ts'
 import { format } from 'date-fns/format'
 import { useParams } from 'react-router-dom'
-import { LinkButton } from '../../components/Button'
+import { Button, LinkButton } from '../../components/Button'
 import { Segment } from '../../components/Segment'
 import { withPageWrapper } from '../../lib/pageWrapper'
 import { type ViewIdeaRouteParams } from '../../lib/routes'
 import * as router from '../../lib/routes'
 import { trpc } from '../../lib/trpc'
 import css from './index.module.scss'
+import { Alert } from '../../components/Alert'
+import { useForm } from '../../lib/form'
 
 
+
+const BlockIdea = ({ idea }: { idea: NonNullable<TrpcRouterOutput['getIdea']['idea']> }) => {
+  const blockIdea = trpc.blockIdea.useMutation()
+  const trpcUtils = trpc.useUtils()
+  const { formik, alertProps, buttonProps } = useForm({
+    onSubmit: async () => {
+      await blockIdea.mutateAsync({ ideaId: idea.id })
+      await trpcUtils.getIdea.refetch({ ideaNick: idea.ideaNick })
+    },
+  })
+  return (
+    <form onSubmit={formik.handleSubmit}>
+        <Alert {...alertProps} />
+        <Button color="red" {...buttonProps}>
+          Block Idea
+        </Button>
+    </form>
+  )
+}
 
 const LikeButton = ({ idea }: { idea: NonNullable<TrpcRouterOutput['getIdea']['idea']> }) => {
   const trpcUtils = trpc.useUtils()
@@ -76,9 +98,15 @@ export const ViewIdeaPage = withPageWrapper({
           </>
         )}
       </div>
-      {me?.id === idea?.author.id && (
+      {canEditIdea(me, idea) && (
         <div className={css.editButton}>
           <LinkButton to={router.getEditIdeaPageRoute({ ideaNick: idea!.ideaNick })}>Edit</LinkButton>
+        </div>
+      )}
+
+      {canBlockIdeas(me) && (
+        <div className={css.blockIdea}>
+          <BlockIdea idea={idea} />
         </div>
       )}
     </Segment>
