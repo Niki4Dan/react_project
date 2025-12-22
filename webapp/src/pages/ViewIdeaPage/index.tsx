@@ -11,6 +11,7 @@ import { type ViewIdeaRouteParams } from '../../lib/routes'
 import * as router from '../../lib/routes'
 import { trpc } from '../../lib/trpc'
 import css from './index.module.scss'
+import { Icon } from '../../components/Icon'
 
 const BlockIdea = ({ idea }: { idea: NonNullable<TrpcRouterOutput['getIdea']['idea']> }) => {
   const blockIdea = trpc.blockIdea.useMutation()
@@ -59,7 +60,7 @@ const LikeButton = ({ idea }: { idea: NonNullable<TrpcRouterOutput['getIdea']['i
         void setIdeaLike.mutateAsync({ ideaId: idea.id, isLikedByMe: !idea.isLikedByMe })
       }}
     >
-      {idea.isLikedByMe ? 'Unlike' : 'Like'}
+      <Icon size={32} name={idea.isLikedByMe ? 'likeFilled' : 'likeEmpty'} />
     </button>
   )
 }
@@ -81,7 +82,6 @@ export const ViewIdeaPage = withPageWrapper({
     me: ctx.me,
   }),
   title: ({ idea }) => `${idea?.name} - ideanick`,
-  
 })(({ idea, me }) => {
   return (
     <Segment title={idea?.name} description={idea?.description}>
