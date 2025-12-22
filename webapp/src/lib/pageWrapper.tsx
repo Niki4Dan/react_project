@@ -1,11 +1,13 @@
 import { type UseTRPCQueryResult, type UseTRPCQuerySuccessResult } from '@trpc/react-query/shared'
 import React, { useEffect } from 'react'
+import {Title} from 'react-head'
 import { useNavigate } from 'react-router-dom'
 import { ErrorPageComponent } from '../components/ErrorPageComponent'
 import { Loader } from '../components/Loader'
 import { NotFoundPage } from '../pages/NotFoundPage'
 import { useAppContext, type AppContext } from './ctx'
 import { getAllIdeasRoute } from './routes'
+
 
 type Props = Record<string, any>
 type QueryResult = UseTRPCQueryResult<any, any>
@@ -32,6 +34,8 @@ type PageWrapperProps<TProps extends Props, TQueryResult extends QueryResult | u
   checkExistsTitle?: string
   checkExistsMessage?: string
 
+  title: string | ((titleProps: HelperProps<TQueryResult> & TProps) => string)
+
   showLoaderOnFetching?: boolean
 
   useQuery?: () => TQueryResult
@@ -50,10 +54,11 @@ const PageWrapper = <TProps extends Props = {}, TQueryResult extends QueryResult
   checkExists,
   checkExistsTitle = 'Not Found',
   checkExistsMessage = 'This page does not exist',
+  title,
   useQuery,
   setProps,
   Page,
-  showLoaderOnFetching = true
+  showLoaderOnFetching = true,
 }: PageWrapperProps<TProps, TQueryResult>) => {
   const navigate = useNavigate()
   const ctx = useAppContext()
@@ -68,7 +73,7 @@ const PageWrapper = <TProps extends Props = {}, TQueryResult extends QueryResult
   }, [redirectNeeded, navigate])
 
   if (queryResult?.isLoading || (showLoaderOnFetching && queryResult?.isFetching) || redirectNeeded) {
-    return <Loader type="page" /> 
+    return <Loader type="page" />
   }
 
   if (queryResult?.isError) {
@@ -96,7 +101,13 @@ const PageWrapper = <TProps extends Props = {}, TQueryResult extends QueryResult
   }
 
   const props = setProps?.(helperProps) as TProps
-  return <Page {...props} />
+  const calculatedTitle = typeof title === 'function' ? title({...helperProps, ...props}) : title
+  return (
+    <>
+      <Title>{calculatedTitle}</Title>
+      <Page {...props} />
+    </>
+  )
 }
 
 export const withPageWrapper = <TProps extends Props = {}, TQueryResult extends QueryResult | undefined = undefined>(

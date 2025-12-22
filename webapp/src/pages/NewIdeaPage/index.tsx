@@ -1,4 +1,5 @@
 import { schema } from '@project/backend/src/router/createIdea/input'
+import { Title } from 'react-head'
 import { Alert } from '../../components/Alert'
 import { Button } from '../../components/Button'
 import { Input } from '../../components/Input'
@@ -10,6 +11,7 @@ import { trpc } from '../../lib/trpc'
 
 export const NewIdeaPage = withPageWrapper({
   authorizedOnly: true,
+  title: 'New Idea - ideanick',
 })(() => {
   const createIdea = trpc.createIdea.useMutation()
   const { formik, buttonProps, alertProps } = useForm({
@@ -30,6 +32,7 @@ export const NewIdeaPage = withPageWrapper({
 
   return (
     <Segment title="New Idea">
+
       <form
         onSubmit={(e) => {
           e.preventDefault()

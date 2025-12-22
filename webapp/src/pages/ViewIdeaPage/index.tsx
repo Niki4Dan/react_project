@@ -2,17 +2,15 @@ import type { TrpcRouterOutput } from '@project/backend/src/router'
 import { canBlockIdeas, canEditIdea } from '@project/backend/src/utils/can.ts'
 import { format } from 'date-fns/format'
 import { useParams } from 'react-router-dom'
+import { Alert } from '../../components/Alert'
 import { Button, LinkButton } from '../../components/Button'
 import { Segment } from '../../components/Segment'
+import { useForm } from '../../lib/form'
 import { withPageWrapper } from '../../lib/pageWrapper'
 import { type ViewIdeaRouteParams } from '../../lib/routes'
 import * as router from '../../lib/routes'
 import { trpc } from '../../lib/trpc'
 import css from './index.module.scss'
-import { Alert } from '../../components/Alert'
-import { useForm } from '../../lib/form'
-
-
 
 const BlockIdea = ({ idea }: { idea: NonNullable<TrpcRouterOutput['getIdea']['idea']> }) => {
   const blockIdea = trpc.blockIdea.useMutation()
@@ -25,10 +23,10 @@ const BlockIdea = ({ idea }: { idea: NonNullable<TrpcRouterOutput['getIdea']['id
   })
   return (
     <form onSubmit={formik.handleSubmit}>
-        <Alert {...alertProps} />
-        <Button color="red" {...buttonProps}>
-          Block Idea
-        </Button>
+      <Alert {...alertProps} />
+      <Button color="red" {...buttonProps}>
+        Block Idea
+      </Button>
     </form>
   )
 }
@@ -73,13 +71,17 @@ export const ViewIdeaPage = withPageWrapper({
       ideaNick,
     })
   },
+
   checkExists: ({ queryResult }) => !!queryResult.data.idea,
   showLoaderOnFetching: false,
   checkExistsMessage: 'Idea not found!',
+
   setProps: ({ queryResult, ctx }) => ({
     idea: queryResult.data.idea,
     me: ctx.me,
   }),
+  title: ({ idea }) => `${idea?.name} - ideanick`,
+  
 })(({ idea, me }) => {
   return (
     <Segment title={idea?.name} description={idea?.description}>

@@ -1,4 +1,5 @@
 import { zGetIdeasTrpcInput } from '@project/backend/src/router/getIdeas/input'
+import { Title } from 'react-head'
 import InfiniteScroll from 'react-infinite-scroller'
 import { Link } from 'react-router-dom'
 import { useDebounceValue } from 'usehooks-ts'
@@ -11,6 +12,8 @@ import { useForm } from '../../lib/form'
 import { getViewIdeaRoute } from '../../lib/routes'
 import { trpc } from '../../lib/trpc'
 import css from './index.module.scss'
+
+
 
 export const AllIdeasPage = () => {
   const { formik } = useForm({
@@ -34,8 +37,13 @@ export const AllIdeasPage = () => {
       }
     )
 
+
+
   return (
     <Segment title="All Ideas">
+      <Title>
+        All ideas - ideanick
+      </Title>
       <div className={css.filter}>
         <Input maxWidth={100} type="text" label="Search" name="search" formik={formik} />
       </div>

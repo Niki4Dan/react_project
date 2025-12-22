@@ -11,6 +11,7 @@ import { trpc } from '../../lib/trpc'
 
 export const SignInPage = withPageWrapper({
   redirectAuthorized: true,
+  title: "Sign-in - ideanick"
 })(() => {
 
   const trpcUtils = trpc.useUtils()

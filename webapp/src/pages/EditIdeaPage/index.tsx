@@ -30,6 +30,7 @@ export const EditIdeaPage = withPageWrapper({
   setProps: ({ queryResult }) => ({
     idea: queryResult.data.idea!,
   }),
+  title: ({ idea }) => `Edit idea "${idea?.name}" - ideanick`
 })(({ idea }) => {
   const navigate = useNavigate()
   const updateIdea = trpc.updateIdea.useMutation()
