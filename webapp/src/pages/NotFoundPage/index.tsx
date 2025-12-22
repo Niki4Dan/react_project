@@ -1,3 +1,4 @@
+import err404 from '../../assets/images/404.png'
 import { ErrorPageComponent } from '../../components/ErrorPageComponent'
 
 export const NotFoundPage = ({
@@ -6,4 +7,6 @@ export const NotFoundPage = ({
 }: {
   title?: string
   message?: string
-}) => <ErrorPageComponent title={title} message={message} />
+}) => <ErrorPageComponent title={title} message={message}>
+  <img src={err404} alt='error' />
+</ErrorPageComponent>
