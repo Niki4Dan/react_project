@@ -7,16 +7,16 @@
     "build-emails": "rimraf ./src/emails/dist && mkdir ./src/emails/dist && mjml ./src/emails/[!_]*.mjml -o ./src/emails/dist",
     "build-ts": "rimraf ./dist && tsc --build ./tsconfig.json",
     "build": "pnpm build-ts && pnpm build-emails && pnpm copy-emails",
-    "copy-emails": "copyfiles -u 1 ./src/emails/dist/*.html ./dist",
+    "copy-emails": "copyfiles ./src/emails/dist/*.html ./dist/backend",
     "watch-emails": "mjml -w ./src/emails/[!_]*.mjml -o ./src/emails/dist",
-    "start": "node ./dist/index.js",
+    "start": "node ./dist/backend/src/index.js",
     "pmd": "prisma migrate dev",
     "pgc": "prisma generate",
     "pmr": "prisma migrate reset",
     "types": "tsc --noEmit --project ./tsconfig.json",
     "lint": "eslint --cache --cache-location ./node_modules/.cache/.eslintcache --ext .ts",
     "prettify": "prettier --log-level warn --cache --write src/**/*.{ts,tsx,js,json,yml,scss} !**/{node_modules,dist}/**/*",
-    "prepare": "pnpm pgc"
+    "prepare": "pnpm pgc && td-patch install -s"
   },
   "prisma": {
     "schema": "./src/prisma/schema.prisma"
@@ -33,6 +33,7 @@
     "prisma": "^7.1.0"
   },
   "dependencies": {
+    "@project/webapp": "workspace:*",
     "@prisma/adapter-pg": "^7.1.0",
     "@prisma/client": "^7.2.0",
     "@trpc/server": "^11.7.1",
