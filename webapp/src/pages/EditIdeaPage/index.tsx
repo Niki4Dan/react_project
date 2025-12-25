@@ -1,7 +1,7 @@
 import { zUpdateIdeaTrpcInput } from '@project/backend/src/router/updateIdea/input'
 import { canEditIdea } from '@project/backend/src/utils/can'
 import pick from 'lodash/pick'
-import { useNavigate, useParams } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 import { Alert } from '../../components/Alert'
 import { Button } from '../../components/Button'
 import { Input } from '../../components/Input'
@@ -9,8 +9,8 @@ import { Segment } from '../../components/Segment'
 import { Textarea } from '../../components/Textarea'
 import { useForm } from '../../lib/form'
 import { withPageWrapper } from '../../lib/pageWrapper'
+import { getEditIdeaRoute, getViewIdeaRoute } from '../../lib/routes'
 
-import { getViewIdeaRoute, type EditIdeaRouteParams } from '../../lib/routes'
 import { trpc } from '../../lib/trpc'
 
 
@@ -18,7 +18,7 @@ import { trpc } from '../../lib/trpc'
 export const EditIdeaPage = withPageWrapper({
   authorizedOnly: true,
   useQuery: () => {
-    const { ideaNick } = useParams() as EditIdeaRouteParams
+    const { ideaNick } = getEditIdeaRoute.useParams()
     return trpc.getIdea.useQuery({
       ideaNick,
     })

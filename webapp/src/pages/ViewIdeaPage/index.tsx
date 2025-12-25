@@ -1,17 +1,15 @@
 import type { TrpcRouterOutput } from '@project/backend/src/router'
 import { canBlockIdeas, canEditIdea } from '@project/backend/src/utils/can.ts'
 import { format } from 'date-fns/format'
-import { useParams } from 'react-router-dom'
 import { Alert } from '../../components/Alert'
 import { Button, LinkButton } from '../../components/Button'
+import { Icon } from '../../components/Icon'
 import { Segment } from '../../components/Segment'
 import { useForm } from '../../lib/form'
 import { withPageWrapper } from '../../lib/pageWrapper'
-import { type ViewIdeaRouteParams } from '../../lib/routes'
-import * as router from '../../lib/routes'
+import { getEditIdeaRoute, getViewIdeaRoute } from '../../lib/routes'
 import { trpc } from '../../lib/trpc'
 import css from './index.module.scss'
-import { Icon } from '../../components/Icon'
 
 const BlockIdea = ({ idea }: { idea: NonNullable<TrpcRouterOutput['getIdea']['idea']> }) => {
   const blockIdea = trpc.blockIdea.useMutation()
@@ -67,7 +65,7 @@ const LikeButton = ({ idea }: { idea: NonNullable<TrpcRouterOutput['getIdea']['i
 
 export const ViewIdeaPage = withPageWrapper({
   useQuery: () => {
-    const { ideaNick } = useParams() as ViewIdeaRouteParams
+    const { ideaNick } = getViewIdeaRoute.useParams()
     return trpc.getIdea.useQuery({
       ideaNick,
     })
@@ -102,7 +100,7 @@ export const ViewIdeaPage = withPageWrapper({
       </div>
       {canEditIdea(me, idea) && (
         <div className={css.editButton}>
-          <LinkButton to={router.getEditIdeaPageRoute({ ideaNick: idea!.ideaNick })}>Edit</LinkButton>
+          <LinkButton to={getEditIdeaRoute({ ideaNick: idea!.ideaNick })}>Edit</LinkButton>
         </div>
       )}
 

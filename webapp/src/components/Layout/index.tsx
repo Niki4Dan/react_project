@@ -24,19 +24,19 @@ export const Layout = () => {
           {me ? (
             <>
               <li className={css.item}>
-                <Link className={css.link} to={routes.getViewNewIdeaPageRoute()}>
+                <Link className={css.link} to={routes.getNewIdeaRoute()}>
                   Add idea
                 </Link>
               </li>
 
               <li className={css.item}>
-                <Link className={css.link} to={routes.getEditProfilePageRoute()}>
+                <Link className={css.link} to={routes.getEditProfileRoute()}>
                   Edit Profile
                 </Link>
               </li>
 
               <li className={css.item}>
-                <Link className={css.link} to={routes.getSignOutPageRoute()}>
+                <Link className={css.link} to={routes.getSignOutRoute()}>
                   {}
                   Log Out ({me.nick})
                 </Link>
@@ -45,13 +45,13 @@ export const Layout = () => {
           ) : (
             <>
               <li className={css.item}>
-                <Link className={css.link} to={routes.getSignUpPageRoute()}>
+                <Link className={css.link} to={routes.getSignUpRoute()}>
                   Sign Up
                 </Link>
               </li>
 
               <li className={css.item}>
-                <Link className={css.link} to={routes.getSignInPageRoute()}>
+                <Link className={css.link} to={routes.getSignInRoute()}>
                   Sign In
                 </Link>
               </li>

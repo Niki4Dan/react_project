@@ -2,7 +2,7 @@ import Cookies from 'js-cookie'
 import { useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { Loader } from '../../components/Loader'
-import { getSignInPageRoute } from '../../lib/routes'
+import { getSignInRoute } from '../../lib/routes'
 import { trpc } from '../../lib/trpc'
 
 export const SignOutPage = () => {
@@ -11,7 +11,7 @@ export const SignOutPage = () => {
   useEffect(() => {
     Cookies.remove('token')
     void trpcUtils.invalidate().then(() => {
-      navigate(getSignInPageRoute())
+      navigate(getSignInRoute())
     })
   }, [])
 
