@@ -16,13 +16,14 @@
     "types": "tsc --noEmit --project ./tsconfig.json",
     "lint": "eslint --cache --cache-location ./node_modules/.cache/.eslintcache --ext .ts",
     "prettify": "prettier --log-level warn --cache --write src/**/*.{ts,tsx,js,json,yml,scss} !**/{node_modules,dist}/**/*",
-    "prepare": "pnpm pgc && td-patch install -s"
+    "prepare": "pnpm pgc && ts-patch install -s"
   },
   "prisma": {
     "schema": "./src/prisma/schema.prisma"
   },
   "devDependencies": {
     "@types/cors": "^2.8.19",
+    "@types/cron": "^2.4.3",
     "@types/express": "^5.0.5",
     "@types/jsonwebtoken": "^9.0.10",
     "@types/lodash": "^4.17.21",
@@ -33,11 +34,12 @@
     "prisma": "^7.1.0"
   },
   "dependencies": {
-    "@project/webapp": "workspace:*",
     "@prisma/adapter-pg": "^7.1.0",
     "@prisma/client": "^7.2.0",
+    "@project/webapp": "workspace:*",
     "@trpc/server": "^11.7.1",
     "cors": "^2.8.5",
+    "cron": "^4.4.0",
     "dotenv": "^17.2.3",
     "express": "^5.1.0",
     "fast-glob": "^3.3.3",

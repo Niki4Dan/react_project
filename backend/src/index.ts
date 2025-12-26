@@ -1,6 +1,7 @@
 import cors from 'cors'
 import 'dotenv/config'
 import express from 'express'
+import { applyCron } from './lib/cron'
 import { type AppContext, createAppContext } from './lib/ctx'
 import { env } from './lib/env'
 import { applyPassportToExpressApp } from './lib/passport'
@@ -21,6 +22,7 @@ void (async () => {
     })
     applyPassportToExpressApp(expressApp, ctx)
     applyTrpcExpressApp(expressApp, ctx, trpcRouter)
+    applyCron(ctx)
 
     expressApp.listen(env.PORT, () => {
       console.info('Listening at http://192.168.38.147:3000') //work
